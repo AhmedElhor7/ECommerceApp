@@ -44,7 +44,6 @@ export class AuthService {
           // if password or email is incorrect
           if (errorRes.error.statusMsg === 'fail') {
             errorMessage = errorRes.error.message || errorMessage;
-            // console.log('Error:', errorMessage);
           }
           // return the error message
           return throwError(() => new Error(errorMessage));

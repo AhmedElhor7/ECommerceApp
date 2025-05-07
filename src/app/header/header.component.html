@@ -1,3 +1,4 @@
+<!-- Header Component -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" routerLink="/products">E-Commerce</a>
@@ -9,7 +10,9 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- Header Navbar -->
     <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Header Navbar List -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a class="nav-link" routerLink="/products" routerLinkActive="active"
@@ -23,6 +26,7 @@
             >Login</a
           >
         </li>
+        <!-- Header Register -->
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a
             class="nav-link"
@@ -31,12 +35,14 @@
             >Register</a
           >
         </li>
+        <!-- Header Cart -->
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a class="nav-link" routerLink="/cart" routerLinkActive="active">
             Cart
             <span class="badge bg-primary"> </span>
           </a>
         </li>
+        <!-- Header Logout -->
         <li class="nav-item" *ngIf="isAuthenticated">
           <a class="nav-link" (click)="onLogout()" style="cursor: pointer"
             >Logout</a

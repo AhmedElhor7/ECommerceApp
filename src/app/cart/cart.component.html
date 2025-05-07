@@ -1,17 +1,12 @@
 <!-- Cart Component -->
-
-
-
-
-
-
 <div class="container">
     <div class="row my-5 g-4">
         <div class="col-md-4" *ngFor="let item of cart">
             <!-- cart Card -->
             <div class="card">
                 <!-- cart Image -->
-                <img loading="lazy" [src]="item.product.imageCover" alt={{item.product.category.title}} class="card-img-top w-100">
+                <img loading="lazy" [src]="item.product.imageCover" alt={{item.product.category.title}}
+                    class="card-img-top w-100">
                 <!-- cart Body -->
                 <div class="card-body">
                     <!-- cart Title -->
@@ -21,10 +16,10 @@
                     <!-- cart Price -->
                     <p class="card-text text-main font-weight-bold fs-4 color-primary">{{item.price |
                         currency:'EGP'}}</p>
-                        <!-- cart quantity -->
-                        <h6> Quantity : {{item.product.quantity}}</h6>
-                        <!-- cart ratingsAverage -->
-                        <h6> Ratings Average : {{item.product.ratingsAverage}}</h6>
+                    <!-- cart quantity -->
+                    <h6> Quantity : {{item.product.quantity}}</h6>
+                    <!-- cart ratingsAverage -->
+                    <h6> Ratings Average : {{item.product.ratingsAverage}}</h6>
                 </div>
             </div>
         </div>

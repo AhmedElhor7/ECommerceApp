@@ -11,17 +11,22 @@ export class CartService {
 
   constructor(private http: HttpClient) {}
 
+  // add product to cart
   addToCart(productId: string) {
+    // get the user data from the local storage
     const user = JSON.parse(localStorage.getItem('userData') || 'null');
+    // get the token from the user data
     const token = user?._token;
+    // check if the user is logged in
     if (!token) {
       console.error('No token—user not logged in');
       return;
     }
-
+    // create the headers
     const headers = new HttpHeaders({ token });
+    // create the body
     const body = { productId };
-
+    // add the product to the cart
     this.http
       .post(`${this.baseUrl}/cart`, body, { headers })
       .pipe(
@@ -30,13 +35,13 @@ export class CartService {
           return throwError(() => err);
         })
       )
+      // subscribe to the response
       .subscribe((res: any) => {
         this.cart.push(...res.data.products);
         console.log('API result:', this.cart);
       });
   }
-
-
+  // get the cart
   getCart(token: string) {
     const headers = new HttpHeaders({ token });
     return this.http.get(`${this.baseUrl}/cart`, { headers });

@@ -22,23 +22,27 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
     const user = localStorage.getItem('userData');
     if(user){
       this.isAuthenticated = true;
-    }
+    } 
+    // subscribe to the user observable
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !!user;
     });
   }
-
+  
   ngOnChanges() {
+    // check if the user is authenticated
     const user = localStorage.getItem('userData');
     if(user){
       this.isAuthenticated = true;
     }
   }
 
+  // logout the user
   onLogout() {
     this.authService.logout();
   }
 
+  // unsubscribe from the user observable
   ngOnDestroy() {
     if (this.userSub) {
       this.userSub.unsubscribe();
