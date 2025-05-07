@@ -1,0 +1,28 @@
+<!-- Products Component -->
+<div class="container">
+    <div class="row my-5 g-4">
+        <div class="col-md-4" *ngFor="let product of products">
+            <!-- Product Card -->
+            <div class="card">
+                <!-- Product Image -->
+                <img loading="lazy" [src]="product.imageCover" alt={{product.title}} class="card-img-top w-100">
+                <!-- Product Body -->
+                <div class="card-body">
+                    <!-- Product Title -->
+                    <h5 class="card-title">{{product.title.slice(0, 20)}}</h5>
+                    <!-- Product Description -->
+                    <p class="card-text">{{product.description.slice(0, 70)}}</p>
+                    <!-- Product Price -->
+                    <p class="card-text text-main font-weight-bold fs-4 color-primary">{{product.price |
+                        currency:'EGP'}}</p>
+                    <!-- Product Button -->
+                    <div>
+                        <button class="btn btn-primary w-100 my-2 py-2 rounded-pill " (click)="onAddToCart(product.id)">Add
+                            to Cart</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

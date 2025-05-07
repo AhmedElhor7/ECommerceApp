@@ -1,0 +1,80 @@
+<!-- login component -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Login</h3>
+        </div>
+        <div class="card-body">
+          <!-- if has error message -->
+          <app-alert
+            *ngIf="errorMessage"
+            [message]="errorMessage"
+            type="danger"
+          ></app-alert>
+          <!-- login form -->
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+            <div class="mb-3">
+              <!-- email input -->
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+                email
+                ngModel
+                #email="ngModel"
+              />
+              <!-- if email is invalid -->
+              <div *ngIf="email.invalid && email.touched" class="text-danger">
+                <small>Email is required</small>
+                <small> Please enter a valid email</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <!-- password input -->
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+                minlength="6"
+                ngModel
+                #password="ngModel"
+              />
+              <!-- if email is invalid -->
+              <div
+                *ngIf="password.invalid && password.touched"
+                class="text-danger"
+              >
+                <small>Password is required</small>
+                <small> Password must be at least 6 characters</small>
+              </div>
+            </div>
+            <!-- login button -->
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="!loginForm.valid"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+          <!-- register link -->
+          <div class="text-center mt-3">
+            <p>
+              Don't have an account? <a routerLink="/auth/register">Register</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

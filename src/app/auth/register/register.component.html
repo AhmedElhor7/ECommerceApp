@@ -1,0 +1,80 @@
+<!-- Register component -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Register</h3>
+        </div>
+        <div class="card-body">
+          <!-- if has error message -->
+          <app-alert *ngIf="errorMessage" [message]="errorMessage" type="danger"></app-alert>
+          <!-- register form -->
+          <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+            <div class="mb-3">
+              <!-- name input -->
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" name="name" required ngModel #name="ngModel" />
+              <!-- if email is invalid -->
+              <div *ngIf="name.invalid && name.touched" class="text-danger">
+                <small>Name is required</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <!-- email input -->
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required ngModel #email="ngModel" />
+              <!-- if email is invalid -->
+              <div *ngIf="email.invalid && email.touched" class="text-danger">
+                <small>Email is required</small>
+                <small> Password must be at least 6 characters</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <!-- password input -->
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required ngModel
+                #password="ngModel" />
+              <!-- if password is invalid -->
+              <div *ngIf="password.invalid && password.touched" class="text-danger">
+                <small *ngIf="password.errors?.['required']">Password is required</small>
+                <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <!-- rePassword input -->
+              <label for="rePassword" class="form-label">Re-Password</label>
+              <input type="password" class="form-control" id="rePassword" name="rePassword" required ngModel
+                #rePassword="ngModel" />
+              <!-- if rePassword is invalid -->
+              <div *ngIf="rePassword.invalid && rePassword.touched" class="text-danger">
+                <small>Re-Password is required</small>
+              </div>
+            </div> 
+            <div class="mb-3">
+              <!-- phone input -->
+              <label for="phone" class="form-label">Phone</label>
+              <input type="text" class="form-control" id="phone" name="phone" required ngModel #phone="ngModel" />
+              <!-- if phone is invalid -->
+              <div *ngIf="phone.invalid && phone.touched" class="text-danger">
+                <small>Phone is required</small>
+              </div>
+            </div>
+            <!-- login button -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">
+                Register
+              </button>
+            </div>
+          </form>
+          <!-- login link -->
+          <div class="text-center mt-3">
+            <p>
+              Already have an account? <a routerLink="/auth/login">Login</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
