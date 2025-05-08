@@ -19,41 +19,37 @@ import { AlertComponent } from '../../shared/alert/alert.component';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  providers: [AuthService],
 })
 export class LoginComponent {
   errorMessage: string | null = null;
   isLoading: boolean = false;
   isLoggedIn: boolean = false;
-
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(form: NgForm) {
-    console.log(form);
+  /*
+  @description: Submit the form
+  @param: form - NgForm
+  @returns: void
+  */
+  onSubmit(form: NgForm): void {
     // if the form is valid
     if (form.valid) {
       const email: string = form.value.email;
       const password: string = form.value.password;
       let authObservable: Observable<AuthResponseData>;
-      console.log(email, password);
-
       // call the login method
       authObservable = this.authService.login(email, password);
 
       // subscribe to the observable
       authObservable.subscribe({
         next: (responseData) => {
-          console.log(responseData);
           this.isLoading = false;
-          console.log('se eeeeeeeeeeeeeeeeeee' + this.errorMessage);
-
           this.errorMessage = null;
           this.router.navigate(['/products']);
           form.reset();
         },
         // if there is an error
         error: (errorMessage) => {
-          console.log('erorororoororororo' + errorMessage);
           this.isLoading = false;
           this.errorMessage = errorMessage;
         },

@@ -8,3 +8,8 @@
     .form-label {
       font-weight: 500;
     }
+
+    .container {  
+      margin-bottom:10rem;
+      margin-top:3rem;
+    }

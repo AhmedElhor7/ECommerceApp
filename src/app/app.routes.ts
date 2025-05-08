@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-
+import { AuthGuard } from './auth/auth.guard';
 // define app routes
 export const routes: Routes = [
   {
@@ -11,7 +11,8 @@ export const routes: Routes = [
   },
   {
     path: 'cart',
-    loadChildren: () => import('./cart/cart.routes').then(m => m.CART_ROUTES)
+    loadChildren: () => import('./cart/cart.routes').then(m => m.CART_ROUTES),
+    canActivate: [AuthGuard]
   },
   {
     path: 'auth',

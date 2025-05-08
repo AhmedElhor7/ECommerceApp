@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <!-- Header Navbar List -->
       <ul class="navbar-nav me-auto">
-        <li class="nav-item" *ngIf="!isAuthenticated">
+        <li class="nav-item">
           <a class="nav-link" routerLink="/products" routerLinkActive="active"
             >Products</a
           >
@@ -36,16 +36,14 @@
           >
         </li>
         <!-- Header Cart -->
-        <li class="nav-item" *ngIf="!isAuthenticated">
+        <li class="nav-item" *ngIf="isAuthenticated">
           <a class="nav-link" routerLink="/cart" routerLinkActive="active">
             Cart
-            <span class="badge bg-primary"> </span>
           </a>
         </li>
         <!-- Header Logout -->
         <li class="nav-item" *ngIf="isAuthenticated">
-          <a class="nav-link" (click)="onLogout()" style="cursor: pointer"
-            >Logout</a
+          <a  class="nav-link" routerLinkActive="active" (click)="onLogout()">Logout</a
           >
         </li>
       </ul>

@@ -24,12 +24,11 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 export class RegisterComponent {
   errorMessage: string | null = null;
   isLoading: boolean = false;
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = false; 
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(form: NgForm) {
-    console.log(form);
     // if the form is valid
     if (form.valid) {
       const name: string = form.value.name;
@@ -38,7 +37,6 @@ export class RegisterComponent {
       const rePassword: string = form.value.rePassword;
       const phone: string = form.value.phone;
       let authObservable: Observable<AuthResponseData>;
-      console.log(name, email, password, rePassword, phone);
 
       // call the register method
       authObservable = this.authService.register(name, email, password, rePassword, phone);
@@ -46,17 +44,13 @@ export class RegisterComponent {
       // subscribe to the observable
       authObservable.subscribe({
         next: (responseData) => {
-          console.log(responseData);
           this.isLoading = false;
-          console.log('se eeeeeeeeeeeeeeeeeee' + this.errorMessage);
-
           this.errorMessage = null;
           this.router.navigate(['/auth/login']);
           form.reset();
         },
         // if there is an error
         error: (errorMessage) => {
-          console.log('erorororoororororo' + errorMessage);
           this.isLoading = false;
           this.errorMessage = errorMessage;
         },

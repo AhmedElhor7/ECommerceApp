@@ -1,3 +1,7 @@
+
+/*
+@description: User model
+*/
 export class User {
   constructor(
     public email: string,
@@ -5,9 +9,5 @@ export class User {
     public role:string,
     private _token: string
   ) {}
-
-  get token() {
-    return this._token;
-  }
 }
 
