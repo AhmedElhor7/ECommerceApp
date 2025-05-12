@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  HttpClient,
   HttpClientModule,
   HttpHeaders,
 } from '@angular/common/http';
-import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
 import { LoadingSppinerComponent } from '../shared/loading-sppiner/loading-sppiner.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import {
   Product,
-  ProductResponse,
-  ProductCart,
 } from '../interface/product.interface';
-import { AuthService } from '../auth/auth.service';
 import { CartProductAuthService } from '../shared/cart-product.service';
+import { ProductsService } from './products.service';
 
 @Component({
   selector: 'app-products',
@@ -30,7 +26,6 @@ import { CartProductAuthService } from '../shared/cart-product.service';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
-  cart: ProductCart[] = [];
 
   isLoading = false;
   alertMessage = '';
@@ -38,76 +33,82 @@ export class ProductsComponent implements OnInit {
   activeProductId = '';
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private cartproductAuthService: CartProductAuthService
+    private cartproductAuthService: CartProductAuthService,
+    private productsService: ProductsService
   ) {}
 
   ngOnInit() {
-    this.fetchProducts();
+    this.loadProducts();
   }
-  /*
-@description: Fetch products from the server
+
+  /**
+@description: Fetch products from the server and populate the products array.
 @returns: void
 */
-  private fetchProducts(): void {
+  private loadProducts(): void {
     this.isLoading = true;
-    // fetch products from the server
-    this.http
-      .get<{ data: Product[] }>(`${this.authService.baseUrl}/products`)
-      .pipe(
-        tap((res) => (this.products = res.data)),
-        finalize(() => (this.isLoading = false))
-      )
-      .subscribe();
+
+    this.productsService.fetchProducts().subscribe({
+      next: (data: Product[]) => {
+        this.products = data;
+      },
+      error: (err) => {
+        this.alertMessage = 'Could not load products at this time.';
+        this.alertType = 'danger';
+        this.cartproductAuthService.showAlert(
+          'Could not load products at this time.',
+          'danger'
+        );
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
-  /*
-  @description: Add product to cart
-  @param: productId - string
-  @returns: void
-  */
-  addToCart(productId: string): void {
+  /**
+   * @description Add a product to the cart
+   *  - retrieves auth headers
+   *  - shows login alert if missing
+   *  - otherwise calls service to add and updates `cart`
+   * @param: productId - string
+   * @returns: void
+   */
+  onAddToCart(productId: string): void {
     this.activeProductId = productId;
-    const headers = this.cartproductAuthService.getAuthHeaders();
+    this.alertMessage = '';
+
+    // get auth headers
+    const headers: HttpHeaders | null =
+      this.cartproductAuthService.getAuthHeaders();
+
     // if the user is not logged in, show the alert and stop the loading indicator
     if (!headers) {
-      this.cartproductAuthService.showAlert(
-        'Please login to add product to cart',
-        'danger'
-      );
-      this.alertMessage = this.cartproductAuthService.alertMessage;
-      this.alertType = this.cartproductAuthService.alertType;
-
+      this.alertMessage = 'Please login to add product to cart';
+      this.alertType = 'danger';
+      this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+      this.isLoading = false;
       return;
     }
-    this.isLoading = false;
-    // add product to cart
-    this.http
-      .post<ProductResponse>(
-        `${this.authService.baseUrl}/cart`,
-        { productId },
-        { headers }
-      )
-      .pipe(
-        tap((res) => {
-          // map the products to the cart
-          this.cart = res.data.products.map((product) => ({
-            _id: product._id,
-            price: product.price,
-            product,
-            count: 1,
-          }));
-          // show the alert
-          this.cartproductAuthService.showAlert(res.message, 'success');
-          this.alertMessage = this.cartproductAuthService.alertMessage;
-          this.alertType = this.cartproductAuthService.alertType;
-        }),
-        // if the server returns an error, show the alert and stop the loading indicator
-        catchError((err) => this.cartproductAuthService.handleError(err, 'Failed to add to cart')),
-        // stop the loading indicator
-        finalize(() => (this.isLoading = false))
-      )
-      .subscribe();
+
+    // call addToCart
+    this.productsService.addToCart(productId, headers).subscribe({
+      next: (updatedCart) => {
+        this.alertMessage = 'Product added to cart successfully';
+        this.alertType = 'success';
+        this.cartproductAuthService.showAlert(this.alertMessage, 'success');
+      },
+      error: (err) => {
+        const msg = err.message || 'Failed to add product to cart';
+        this.alertMessage = msg;
+        this.alertType = 'danger';
+        this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+      },
+      complete: () => {
+        this.isLoading = false;
+        setTimeout(() => (this.alertMessage = ''), 3000);
+      },
+    });
   }
+
 }
