@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class AlertComponent {
   @Input() message: string = '';
-  /*
+  /**
   @description: The type of the alert
   @example: 'success' | 'danger' | 'warning' | 'info'
   */

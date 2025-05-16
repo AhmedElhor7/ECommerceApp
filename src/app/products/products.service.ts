@@ -10,7 +10,7 @@ export class ProductsService {
     private http: HttpClient,
     private authService: AuthService  ) {}
 
-  /*
+  /**
    * @description Fetch products from the server
    * @returns Observable<Product[]>
    */

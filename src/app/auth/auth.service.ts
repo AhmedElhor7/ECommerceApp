@@ -3,39 +3,41 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
-
-// interface for the auth response data
-export interface AuthResponseData {
-  token: string;
-  message: string;
-  name: string;
-  email: string;
-  role: string;
-  registered?: boolean;
-}
+import { AuthResponseData } from '../interface/auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
+    this.loadUserFromStorage();
+  }
+
+ /**
+  * @description load user data from local storage
+  * @returns void
+  * @param: none
+  */
+  private loadUserFromStorage(): void {
     const stored = localStorage.getItem('userData');
-    if (stored) {
-      try {
-        const obj = JSON.parse(stored);
-        const loaded = new User(obj.email, obj.name, obj.role, obj._token);
-        this.user.next(loaded);
-      } catch {
-        localStorage.removeItem('userData');
-      }
+    if (!stored) return;
+
+    try {
+      const obj = JSON.parse(stored);
+      const loaded = new User(obj.email, obj.name, obj.role, obj._token);
+      this.user.next(loaded);
+    } catch (error) {
+      console.error('Failed to load user data from storage:', error);
+      localStorage.removeItem('userData');
+      this.user.next(null);
     }
   }
 
   public baseUrl: string = 'https://ecommerce.routemisr.com/api/v1';
 
-  /*
-  @parmeter: email
-  @parmeter: password
+  /**
+  @param: email
+  @param: password
   @return: Observable<AuthResponseData>
   @description: login to the application
   */
@@ -72,12 +74,12 @@ export class AuthService {
       );
   }
 
-  /*
-  @parmeter: name
-  @parmeter: email
-  @parmeter: password
-  @parmeter: rePassword
-  @parmeter: phone
+  /**
+  @param: name
+  @param: email
+  @param: password
+  @param: rePassword
+  @param: phone
   @return: Observable<AuthResponseData>
   @description: register to the application
   */

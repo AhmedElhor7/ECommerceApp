@@ -6,10 +6,10 @@
 <!-- products grid -->
 <div class="container" *ngIf="!isLoading">
     <!-- empty cart -->
-  <div *ngIf="products.length === 0" class="text-center my-5">
+  <div *ngIf="!products.length" class="text-center my-5">
     <p>Sorry No Products To Show</p>
   </div>
-  <div *ngIf="products.length > 0" class="row my-5 g-4">
+  <div *ngIf="products.length" class="row my-5 g-4">
         <!-- error message -->
     <app-alert
       *ngIf="alertMessage && alertType === 'danger'"

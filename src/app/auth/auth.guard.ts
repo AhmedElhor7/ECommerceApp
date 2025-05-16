@@ -9,7 +9,7 @@ import { Observable, map, take, tap } from 'rxjs';
 export class AuthGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
-/*
+/**
 @param route: ActivatedRouteSnapshot
 @param state: RouterStateSnapshot
 @returns boolean

@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthResponseData, AuthService } from '../auth.service';
+import { AuthService } from '../auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AlertComponent } from '../../shared/alert/alert.component';
+import { AuthResponseData } from '../../interface/auth.interface';
 
 @Component({
   standalone: true,
@@ -26,7 +27,7 @@ export class LoginComponent {
   isLoggedIn: boolean = false;
   constructor(private authService: AuthService, private router: Router) {}
 
-  /*
+  /**
   @description: Submit the form
   @param: form - NgForm
   @returns: void

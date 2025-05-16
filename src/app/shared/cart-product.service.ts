@@ -10,7 +10,7 @@ export class CartProductAuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  /*
+  /**
   @description: Show the alert
   @param: message - string
   @param: type - 'success' | 'danger'
@@ -22,7 +22,7 @@ export class CartProductAuthService {
     setTimeout(() => (this.alertMessage = ''), 3000);
   }
 
-  /*
+  /**
     @description: Handle the error
     @param: error - any
     @param: fallback - string
@@ -34,7 +34,7 @@ export class CartProductAuthService {
     return throwError(() => error);
   }
 
-  /*
+  /**
   @description: Get the auth headers
   @returns: HttpHeaders | null
   */
