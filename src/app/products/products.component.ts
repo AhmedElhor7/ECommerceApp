@@ -27,10 +27,10 @@ import { ProductsService } from './products.service';
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
 
-  isLoading = false;
-  alertMessage = '';
+  isLoading: boolean = false;
+  alertMessage: string = '';
   alertType: string = '';
-  activeProductId = '';
+  activeProductId: string = '';
 
   constructor(
     private cartproductAuthService: CartProductAuthService,
@@ -39,6 +39,19 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.loadProducts();
+  }
+
+  /**
+   * @description: Displays an alert message with the given type using the cartproductAuthService.
+   * Also sets local alertMessage and alertType properties.
+   * @param message - The message to be displayed in the alert.
+   * @param type - The type of the alert ('success' | 'danger').
+   * @returns: void
+   */
+  private handleAlert(message: string, type: 'success' | 'danger'): void {
+    this.alertMessage = message;
+    this.alertType = type;
+    this.cartproductAuthService.showAlert(message, type);
   }
 
   /**
@@ -53,12 +66,7 @@ export class ProductsComponent implements OnInit {
         this.products = data;
       },
       error: (err) => {
-        this.alertMessage = 'Could not load products at this time.';
-        this.alertType = 'danger';
-        this.cartproductAuthService.showAlert(
-          'Could not load products at this time.',
-          'danger'
-        );
+        this.handleAlert('Could not load products at this time.','danger');
       },
       complete: () => {
         this.isLoading = false;
@@ -84,9 +92,7 @@ export class ProductsComponent implements OnInit {
 
     // if the user is not logged in, show the alert and stop the loading indicator
     if (!headers) {
-      this.alertMessage = 'Please login to add product to cart';
-      this.alertType = 'danger';
-      this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+      this.handleAlert('Please login to add product to cart', 'danger');
       this.isLoading = false;
       return;
     }
@@ -94,15 +100,10 @@ export class ProductsComponent implements OnInit {
     // call addToCart
     this.productsService.addToCart(productId, headers).subscribe({
       next: (updatedCart) => {
-        this.alertMessage = 'Product added to cart successfully';
-        this.alertType = 'success';
-        this.cartproductAuthService.showAlert(this.alertMessage, 'success');
+        this.handleAlert('Product added to cart successfully', 'success');
       },
       error: (err) => {
-        const msg = err.message || 'Failed to add product to cart';
-        this.alertMessage = msg;
-        this.alertType = 'danger';
-        this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+        this.handleAlert('Failed to add product to cart', 'danger');
       },
       complete: () => {
         this.isLoading = false;
@@ -110,5 +111,4 @@ export class ProductsComponent implements OnInit {
       },
     });
   }
-
 }

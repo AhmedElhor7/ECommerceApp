@@ -38,6 +38,19 @@ export class CartComponent implements OnInit {
   }
 
   /**
+   * @description: Displays an alert message with the given type using the cartproductAuthService.
+   * Also sets local alertMessage and alertType properties.
+   * @param message - The message to be displayed in the alert.
+   * @param type - The type of the alert ('success' | 'danger').
+   * @returns: void
+   */
+  private handleAlert(message: string, type: 'success' | 'danger'): void {
+    this.alertMessage = message;
+    this.alertType = type;
+    this.cartproductAuthService.showAlert(message, type);
+  }
+
+  /**
    * @description: Fetches the cart or shows login alert if not authenticated
    * @returns void
    */
@@ -51,9 +64,7 @@ export class CartComponent implements OnInit {
 
     // 2. If missing token, prompt login and stop
     if (!headers) {
-      this.alertMessage = 'Please login to view your cart';
-      this.alertType = 'danger';
-      this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+      this.handleAlert('Please login to view your cart', 'danger');
       this.isLoading = false;
       return;
     }
@@ -64,9 +75,7 @@ export class CartComponent implements OnInit {
         this.cart = items;
       },
       error: () => {
-        this.alertMessage = 'Could not load cart at this time.';
-        this.alertType = 'danger';
-        this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+        this.handleAlert('Could not load cart at this time.', 'danger');
       },
       complete: () => {
         this.isLoading = false;
@@ -85,17 +94,13 @@ export class CartComponent implements OnInit {
   onDeleteAllCart(): void {
     this.isLoading = true;
     // 1. Inform user deletion is in progress
-    this.alertMessage = 'Deleting all cart...';
-    this.alertType = 'danger';
-    this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+    this.handleAlert('Deleting all cart...', 'danger');
 
     // 2. Retrieve auth headers
     const headers: HttpHeaders | null =
       this.cartproductAuthService.getAuthHeaders();
     if (!headers) {
-      this.alertMessage = 'Please login to delete all cart';
-      this.alertType = 'danger';
-      this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+      this.handleAlert('Please login to delete all cart', 'danger');
       this.isLoading = false;
       return;
     }
@@ -105,17 +110,12 @@ export class CartComponent implements OnInit {
       next: (updatedCart) => {
         // 4a. Success: clear cart and notify
         this.cart = updatedCart;
-        this.alertMessage = 'All cart deleted successfully';
-        this.alertType = 'success';
-        this.cartproductAuthService.showAlert(this.alertMessage, 'success');
+        this.handleAlert('All cart deleted successfully', 'success');
         this.isLoading = false;
       },
       error: (err) => {
         // 4b. Error: display message
-        const msg = err.message || 'Failed to delete all cart';
-        this.alertMessage = msg;
-        this.alertType = 'danger';
-        this.cartproductAuthService.showAlert(this.alertMessage, 'danger');
+        this.handleAlert('Failed to delete all cart', 'danger');
         this.isLoading = false;
       },
       complete: () => {
@@ -125,5 +125,4 @@ export class CartComponent implements OnInit {
       },
     });
   }
-
 }
