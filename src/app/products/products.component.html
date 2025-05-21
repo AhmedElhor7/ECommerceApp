@@ -4,57 +4,48 @@
 </div>
 
 <!-- products grid -->
-<div class="container" *ngIf="!isLoading">
-    <!-- empty cart -->
-  <div *ngIf="!products.length" class="text-center my-5">
-    <p>Sorry No Products To Show</p>
+<section class="container" *ngIf="!isLoading">
+  <!-- empty cart -->
+  <div role="alert" tabindex="0" *ngIf="!products.length" class="warning-message text-center my-5">
+    <p>Sorry, no products to show.</p>
   </div>
+
   <div *ngIf="products.length" class="row my-5 g-4">
-        <!-- error message -->
-    <app-alert
-      *ngIf="alertMessage && alertType === 'danger'"
-      class="text-center"
-      [message]="alertMessage"
-      [type]="alertType"
-    ></app-alert>
+    <!-- error message -->
+    <app-alert *ngIf="alertMessage && alertType === 'danger'" class="text-center" [message]="alertMessage" [type]="alertType"></app-alert>
+
     <div class="col-md-4" *ngFor="let product of products">
       <!-- product card -->
-      <div class="card">
+      <div class="card h-100 d-flex flex-column">
         <!-- product image -->
-        <img
-          loading="lazy"
-          [src]="product.imageCover"
-          [alt]="product.title"
-          class="card-img-top w-100"
-        />
+        <img loading="lazy" [src]="product.imageCover" [alt]="product.title" class="card-img-top w-100" />
+
         <!-- product body -->
-        <div class="card-body">
+        <div class="card-body d-flex flex-column justify-content-between">
           <!-- product title -->
-          <h5 class="card-title">{{ product.title | slice:0:20 }}</h5>
+          <h5 class="card-title">
+            {{ product.title | slice:0:20 }}
+          </h5>
+
           <!-- product description -->
-          <p class="card-text">{{ product.description | slice:0:70 }}</p>
+          <p class="card-text">
+            {{ product.description | slice:0:70 }}
+          </p>
+
           <!-- product price -->
           <p class="card-text text-main font-weight-bold fs-4 color-primary">
             {{ product.price | currency:'EGP' }}
           </p>
 
-            <!-- alert only for this product -->
-          <app-alert
-            *ngIf="alertMessage && activeProductId === product.id"
-            [message]="alertMessage"
-            [type]="alertType"
-            class="mb-2"
-          ></app-alert>
+          <!-- alert only for this product -->
+          <app-alert *ngIf="alertMessage && activeProductId === product.id" [message]="alertMessage" [type]="alertType" class="mb-2"></app-alert>
 
           <!-- add to cart button -->
-          <button
-            class="btn btn-primary w-100 my-2 rounded-pill"
-            (click)="onAddToCart(product.id)"
-          >
+          <button class="btn btn-primary w-100 my-2 rounded-pill" (click)="onAddToCart(product.id)" [attr.aria-label]="'Add ' + product.title + ' to cart'">
             Add to Cart
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>

@@ -1,70 +1,39 @@
 <!-- login component -->
-<div class="container">
+<section class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
         <!-- card header -->
         <div class="card-header">
-          <h3 class="text-center">Login</h3>
+          <h2 class="text-center">Login</h2>
         </div>
         <!-- card body -->
         <div class="card-body">
           <!-- if has error message -->
-          <app-alert
-            *ngIf="errorMessage"
-            [message]="errorMessage"
-            type="danger"
-          ></app-alert>
+          <app-alert *ngIf="errorMessage" [message]="errorMessage" type="danger"></app-alert>
           <!-- login form -->
           <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
             <div class="mb-3">
               <!-- email input -->
               <label for="email" class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                required
-                email
-                ngModel
-                #email="ngModel"
-              />
+              <input type="email" class="form-control" id="email" name="email" required email ngModel #email="ngModel" placeholder="test@test.com" aria-describedby="emailError" />
               <!-- if email is invalid -->
-              <div *ngIf="email.invalid && email.touched" class="text-danger">
-                <small>Email is required</small>
-                <small> Please enter a valid email</small>
+              <div id="emailError" role="alert" tabindex="0" *ngIf="email.invalid && email.touched" class="text-danger">
+                <small>Email is required. Please enter a valid email.</small>
               </div>
             </div>
             <div class="mb-3">
               <!-- password input -->
               <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                required
-                minlength="6"
-                ngModel
-                #password="ngModel"
-              />
-              <!-- if email is invalid -->
-              <div
-                *ngIf="password.invalid && password.touched"
-                class="text-danger"
-              >
-                <small>Password is required</small>
-                <small> Password must be at least 6 characters</small>
+              <input type="password" class="form-control" id="password" name="password" required minlength="6" ngModel #password="ngModel" placeholder="Qw123*@swee" aria-describedby="passwordError" />
+              <!-- if password is invalid -->
+              <div id="passwordError" role="alert" tabindex="0" *ngIf="password.invalid && password.touched" class="text-danger">
+                <small>Password is required. Password must be at least 6 characters.</small>
               </div>
             </div>
             <!-- login button -->
             <div class="d-grid">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                [disabled]="!loginForm.valid"
-              >
+              <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" aria-label="Login to your account">
                 Login
               </button>
             </div>
@@ -72,11 +41,11 @@
           <!-- register link -->
           <div class="text-center mt-3">
             <p>
-              Don't have an account? <a routerLink="/auth/register">Register</a>
+              Don't have an account? <a routerLink="/auth/register">Click Here To Register</a>
             </p>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>

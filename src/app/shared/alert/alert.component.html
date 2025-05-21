@@ -1,4 +1,11 @@
-    <!-- Alert Component -->
-    <div *ngIf="message" class="alert" [ngClass]="'alert-' + type" role="alert">
-      {{ message }}
-    </div>
+<!-- Alert Component -->
+<section
+  *ngIf="message"
+  class="alert"
+  [ngClass]="'alert-' + type"
+  role="status"
+  tabindex="0"
+  aria-live="polite"
+>
+  {{ message }}
+</section>

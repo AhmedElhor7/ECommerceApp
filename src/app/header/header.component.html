@@ -11,24 +11,25 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Header Navbar -->
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <header class="collapse navbar-collapse" id="navbarNav">
       <!-- Header Navbar List -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/products" routerLinkActive="active"
+          <a aria-label="Go To Products" class="nav-link" routerLink="/products" routerLinkActive="active"
             >Products</a
           >
         </li>
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item" *ngIf="!isAuthenticated">
-          <a class="nav-link" routerLink="/auth/login" routerLinkActive="active"
+          <a aria-label="Go To Login" class="nav-link" routerLink="/auth/login" routerLinkActive="active"
             >Login</a
           >
         </li>
         <!-- Header Register -->
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a
+          aria-label="Go To Register"
             class="nav-link"
             routerLink="/auth/register"
             routerLinkActive="active"
@@ -37,16 +38,17 @@
         </li>
         <!-- Header Cart -->
         <li class="nav-item" *ngIf="isAuthenticated">
-          <a class="nav-link" routerLink="/cart" routerLinkActive="active">
+          <a
+          aria-label="Go To Cart" class="nav-link" routerLink="/cart" routerLinkActive="active">
             Cart
           </a>
         </li>
         <!-- Header Logout -->
         <li class="nav-item" *ngIf="isAuthenticated">
-          <a  class="nav-link" routerLinkActive="active" (click)="onLogout()">Logout</a
+          <a  aria-label="Go To Logout" class="nav-link" routerLinkActive="active" (click)="onLogout()">Logout</a
           >
         </li>
       </ul>
-    </div>
+    </header>
   </div>
 </nav>
