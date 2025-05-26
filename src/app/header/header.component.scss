@@ -1,0 +1,62 @@
+// Variables
+$primary-color: #007bff;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+.header {
+  background-color: #f8f9fa;
+  box-shadow: 0 0.125rem 0.25rem $shadow-color;
+  padding: 0.5rem 1rem;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__toggler {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    a {
+      font-weight: 500;
+      font-size: 1.2rem;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      color: #333;
+
+      &.active {
+        color: $primary-color;
+      }
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}

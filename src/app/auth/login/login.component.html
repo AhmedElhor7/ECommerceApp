@@ -1,49 +1,47 @@
 <!-- login component -->
-<section class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <!-- card header -->
-        <div class="card-header">
-          <h2 class="text-center">Login</h2>
-        </div>
-        <!-- card body -->
-        <div class="card-body">
-          <!-- if has error message -->
-          <app-alert *ngIf="errorMessage" [message]="errorMessage" type="danger"></app-alert>
-          <!-- login form -->
-          <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-            <div class="mb-3">
-              <!-- email input -->
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" required email ngModel #email="ngModel" placeholder="test@test.com" aria-describedby="emailError" />
-              <!-- if email is invalid -->
-              <div id="emailError" role="alert" tabindex="0" *ngIf="email.invalid && email.touched" class="text-danger">
-                <small>Email is required. Please enter a valid email.</small>
-              </div>
+<section class="login-container">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <!-- card header -->
+      <div class="login-card__header">
+        <h2 class="login-card__title text-center">Login</h2>
+      </div>
+      <!-- card body -->
+      <div class="login-card__body">
+        <!-- if has error message -->
+        <app-alert *ngIf="errorMessage" [message]="errorMessage" type="danger"></app-alert>
+        <!-- login form -->
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+          <div class="form-group">
+            <!-- email input -->
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-input" id="email" name="email" required email ngModel #email="ngModel" placeholder="test@test.com" aria-describedby="emailError" />
+            <!-- if email is invalid -->
+            <div id="emailError" role="alert" tabindex="0" *ngIf="email.invalid && email.touched" class="form-error">
+              <small>Email is required. Please enter a valid email.</small>
             </div>
-            <div class="mb-3">
-              <!-- password input -->
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password" required minlength="6" ngModel #password="ngModel" placeholder="Qw123*@swee" aria-describedby="passwordError" />
-              <!-- if password is invalid -->
-              <div id="passwordError" role="alert" tabindex="0" *ngIf="password.invalid && password.touched" class="text-danger">
-                <small>Password is required. Password must be at least 6 characters.</small>
-              </div>
-            </div>
-            <!-- login button -->
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" aria-label="Login to your account">
-                Login
-              </button>
-            </div>
-          </form>
-          <!-- register link -->
-          <div class="text-center mt-3">
-            <p>
-              Don't have an account? <a routerLink="/auth/register">Click Here To Register</a>
-            </p>
           </div>
+          <div class="form-group">
+            <!-- password input -->
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-input" id="password" name="password" required minlength="6" ngModel #password="ngModel" placeholder="Qw123*@swee" aria-describedby="passwordError" />
+            <!-- if password is invalid -->
+            <div id="passwordError" role="alert" tabindex="0" *ngIf="password.invalid && password.touched" class="form-error">
+              <small>Password is required. Password must be at least 6 characters.</small>
+            </div>
+          </div>
+          <!-- login button -->
+          <div class="form-button">
+            <button type="submit" class="login-btn" [disabled]="!loginForm.valid" aria-label="Login to your account">
+              Login
+            </button>
+          </div>
+        </form>
+        <!-- register link -->
+        <div class="text-center mt-3">
+          <p>
+            Don't have an account? <a routerLink="/auth/register">Click Here To Register</a>
+          </p>
         </div>
       </div>
     </div>

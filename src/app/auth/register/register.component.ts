@@ -19,7 +19,7 @@ import { AuthResponseData } from '../../interface/auth.interface';
     AlertComponent,
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   errorMessage: string | null = null;

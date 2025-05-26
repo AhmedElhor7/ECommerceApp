@@ -1,52 +1,35 @@
 <!-- Header Component -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" routerLink="/products">E-Commerce</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="header">
+  <div class="header__container">
+    <a class="header__brand" routerLink="/products">E-Commerce</a>
+
     <!-- Header Navbar -->
-    <header class="collapse navbar-collapse" id="navbarNav">
+    <header class="header__nav">
       <!-- Header Navbar List -->
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a aria-label="Go To Products" class="nav-link" routerLink="/products" routerLinkActive="active"
-            >Products</a
-          >
+      <ul class="header__list">
+        <li class="header__item">
+          <a aria-label="Go To Products" routerLink="/products" routerLinkActive="active">Products</a>
         </li>
       </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item" *ngIf="!isAuthenticated">
-          <a aria-label="Go To Login" class="nav-link" routerLink="/auth/login" routerLinkActive="active"
-            >Login</a
-          >
+
+      <ul class="header__list">
+        <li class="header__item" *ngIf="!isAuthenticated">
+          <a aria-label="Go To Login" routerLink="/auth/login" routerLinkActive="active">Login</a>
         </li>
+
         <!-- Header Register -->
-        <li class="nav-item" *ngIf="!isAuthenticated">
-          <a
-          aria-label="Go To Register"
-            class="nav-link"
-            routerLink="/auth/register"
-            routerLinkActive="active"
-            >Register</a
-          >
+        <li class="header__item" *ngIf="!isAuthenticated">
+          <a aria-label="Go To Register" routerLink="/auth/register" routerLinkActive="active">Register</a>
         </li>
+
         <!-- Header Cart -->
-        <li class="nav-item" *ngIf="isAuthenticated">
-          <a
-          aria-label="Go To Cart" class="nav-link" routerLink="/cart" routerLinkActive="active">
-            Cart
-          </a>
+        <li class="header__item" *ngIf="isAuthenticated">
+          <a aria-label="Go To Cart" routerLink="/cart" routerLinkActive="active">Cart</a>
         </li>
+
         <!-- Header Logout -->
-        <li class="nav-item" *ngIf="isAuthenticated">
-          <a  aria-label="Go To Logout" class="nav-link" routerLinkActive="active" (click)="onLogout()">Logout</a
-          >
+        <li class="header__item" *ngIf="isAuthenticated">
+          <a aria-label="Go To Logout" (click)="onLogout()" routerLinkActive="active">Logout</a>
         </li>
       </ul>
     </header>

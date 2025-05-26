@@ -1,79 +1,82 @@
 <!-- Register component -->
-<section class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <!-- card header -->
-        <div class="card-header">
-          <h2 class="text-center">Register</h2>
-        </div>
-        <!-- card body -->
-        <div class="card-body">
-          <!-- if has error message -->
-          <app-alert *ngIf="errorMessage" [message]="errorMessage" type="danger"></app-alert>
-          <!-- register form -->
-          <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
-            <div class="mb-3">
-              <!-- name input -->
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" name="name" required ngModel #name="ngModel" aria-describedby="nameError" />
-              <!-- if name is invalid -->
-              <div id="nameError" role="alert" tabindex="0" *ngIf="name.invalid && name.touched" class="text-danger">
-                <small>Name is required</small>
-              </div>
+<section class="register-container">
+  <div class="register-wrapper">
+    <div class="card">
+      <!-- card header -->
+      <div class="card-header">
+        <h2>Register</h2>
+      </div>
+      <!-- card body -->
+      <div class="card-body">
+        <!-- if has error message -->
+        <app-alert *ngIf="errorMessage" [message]="errorMessage" type="danger"></app-alert>
+        <!-- register form -->
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+          <div class="form-group">
+            <!-- name input -->
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required ngModel #name="ngModel" aria-describedby="nameError" placeholder="jhon" />
+            <!-- if name is invalid -->
+            <div id="nameError" role="alert" tabindex="0" *ngIf="name.invalid && name.touched" class="text-danger">
+              <small>Name is required</small>
             </div>
-            <div class="mb-3">
-              <!-- email input -->
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" required ngModel #email="ngModel" aria-describedby="emailError" />
-              <!-- if email is invalid -->
-              <div id="emailError" role="alert" tabindex="0" *ngIf="email.invalid && email.touched" class="text-danger">
-                <small *ngIf="email.errors?.['required']">Email is required</small>
-                <small *ngIf="email.errors?.['email']">Please enter a valid email</small>
-              </div>
-            </div>
-            <div class="mb-3">
-              <!-- password input -->
-              <label for="password" class="form-label">Password</label>
-              <input minlength="6" type="password" class="form-control" id="password" name="password" required ngModel #password="ngModel" aria-describedby="passwordError" />
-              <!-- if password is invalid -->
-              <div id="passwordError" role="alert" tabindex="0" *ngIf="password.invalid && password.touched" class="text-danger">
-                <small *ngIf="password.errors?.['required']">Password is required</small>
-                <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</small>
-              </div>
-            </div>
-            <div class="mb-3">
-              <!-- rePassword input -->
-              <label for="rePassword" class="form-label">Re-Password</label>
-              <input minlength="6" type="password" class="form-control" id="rePassword" name="rePassword" required ngModel #rePassword="ngModel" aria-describedby="rePasswordError" />
-              <!-- if rePassword is invalid -->
-              <div id="rePasswordError" role="alert" tabindex="0" *ngIf="rePassword.invalid && rePassword.touched" class="text-danger">
-                <small>Re-Password is required</small>
-              </div>
-            </div>
-            <div class="mb-3">
-              <!-- phone input -->
-              <label for="phone" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="phone" name="phone" required ngModel #phone="ngModel" aria-describedby="phoneError" />
-              <!-- if phone is invalid -->
-              <div id="phoneError" role="alert" tabindex="0" *ngIf="phone.invalid && phone.touched" class="text-danger">
-                <small>Phone is required</small>
-              </div>
-            </div>
-            <!-- register button -->
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid" aria-label="Register a new account">
-                Register
-              </button>
-            </div>
-          </form>
-          <!-- login link -->
-          <div class="text-center mt-3">
-            <p>
-              Already have an account?
-              <a routerLink="/auth/login">Click Here To Login</a>
-            </p>
           </div>
+
+          <div class="form-group">
+            <!-- email input -->
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required ngModel #email="ngModel" aria-describedby="emailError" placeholder="test@test.com" />
+            <!-- if email is invalid -->
+            <div id="emailError" role="alert" tabindex="0" *ngIf="email.invalid && email.touched" class="text-danger">
+              <small *ngIf="email.errors?.['required']">Email is required</small>
+              <small *ngIf="email.errors?.['email']">Please enter a valid email</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!-- password input -->
+            <label for="password" class="form-label">Password</label>
+            <input minlength="6" type="password" class="form-control" id="password" name="password" required ngModel #password="ngModel" aria-describedby="passwordError" placeholder="Qw123*@swee" />
+            <!-- if password is invalid -->
+            <div id="passwordError" role="alert" tabindex="0" *ngIf="password.invalid && password.touched" class="text-danger">
+              <small *ngIf="password.errors?.['required']">Password is required</small>
+              <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!-- rePassword input -->
+            <label for="rePassword" class="form-label">Re-Password</label>
+            <input minlength="6" type="password" class="form-control" id="rePassword" name="rePassword" required ngModel #rePassword="ngModel" aria-describedby="rePasswordError" placeholder="Qw123*@swee" />
+            <!-- if rePassword is invalid -->
+            <div id="rePasswordError" role="alert" tabindex="0" *ngIf="rePassword.invalid && rePassword.touched" class="text-danger">
+              <small>Re-Password is required</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!-- phone input -->
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" required ngModel #phone="ngModel" aria-describedby="phoneError" placeholder="01012345678" />
+            <!-- if phone is invalid -->
+            <div id="phoneError" role="alert" tabindex="0" *ngIf="phone.invalid && phone.touched" class="text-danger">
+              <small>Phone is required</small>
+            </div>
+          </div>
+
+          <!-- register button -->
+          <div class="form-button">
+            <button type="submit" class="register-btn" [disabled]="!registerForm.valid" aria-label="Register a new account">
+              Register
+            </button>
+          </div>
+        </form>
+        <!-- login link -->
+        <div class="text-center mt-3">
+          <p>
+            Already have an account?
+            <a routerLink="/auth/login">Click Here To Login</a>
+          </p>
         </div>
       </div>
     </div>

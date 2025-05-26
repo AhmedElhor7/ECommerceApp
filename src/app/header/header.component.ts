@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-header',
   imports: [CommonModule, RouterModule, HttpClientModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-  this.setupUserSubscription();
+    this.setupUserSubscription();
   }
 
   /**

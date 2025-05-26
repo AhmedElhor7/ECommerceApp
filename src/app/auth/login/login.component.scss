@@ -1,0 +1,101 @@
+// Variables
+$login-primary-color: #007bff;
+$login-primary-hover: #0056b3;
+$login-disabled-color: #6c757d;
+$login-error-color: #dc3545;
+$login-bg-color: #fff;
+$login-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+$login-border-color: #ccc;
+$login-border-radius: 0.375rem;
+
+.login-container {
+  margin: 3rem auto 10rem auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 600px;
+}
+
+.login-card {
+  box-shadow: $login-shadow;
+  background-color: $login-bg-color;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  &__header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
+
+    .login-card__title {
+      text-align: center;
+      font-size: 2rem;
+    }
+  }
+
+  &__body {
+    padding: 2rem;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1.5rem;
+  border: 1px solid $login-border-color;
+  border-radius: $login-border-radius;
+
+  &:focus {
+    outline: none;
+    border-color: $login-primary-color;
+  }
+}
+
+.form-error {
+  color: $login-error-color;
+  margin-top: 0.25rem;
+
+  small {
+    font-size: 1rem;
+  }
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: $login-border-radius;
+  background-color: $login-primary-color;
+  color: #fff;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: $login-disabled-color;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $login-primary-hover;
+  }
+}
